@@ -6,6 +6,7 @@ import User from './pages/user/User';
 import { Routes } from 'react-router-dom';
 import Error from './pages/error/Error';
 import Post from './pages/post/Post';
+import PostList from './pages/postList/PostList';
 
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
           <Route exact path='/users' element={<Home />}/>
           <Route exact path='/user/:id' element={<User/>}/>
           <Route exact path='/post/:id' element={<Post />}/>
+          <Route exact path='/postUser/1' element={<PostList id="1" />}/>
           <Route exact path='/*' element={<Error />} />
         </Routes>
 

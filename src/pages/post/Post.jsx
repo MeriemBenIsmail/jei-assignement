@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from "react-router";
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import Axios from 'axios';
 import './post.css';
 import { Link } from 'react-router-dom';
@@ -16,7 +16,7 @@ export default function Post() {
 
   }
 
-  const getPost = () => {
+  useEffect(() => {
         
     Axios.get('https://jsonplaceholder.typicode.com/posts/'+{id}.id).then( (response) => {
 
@@ -28,14 +28,10 @@ export default function Post() {
     console.error(error);
   });
   
-  }
+  },[]);
   return (
     <div className="container post">
       <button type="button" class="btn btn-primary col"><Link to='/'>Home</Link></button>
-          
-          {getPost()}
-         
-          
             <div className="row">
               <div class="card mb-3">
                 <h3 class="card-header">Post Number {post.id}</h3>

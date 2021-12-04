@@ -1,9 +1,10 @@
 import React from 'react';
 import { useParams } from "react-router";
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import Axios from 'axios';
 import './user.css';
 import { Link } from 'react-router-dom';
+import PostList from '../postList/PostList';
 
 export default function User() {
 
@@ -12,38 +13,27 @@ export default function User() {
   const [address,setAddress] = useState({});
   const [company,setCompany] = useState({});
   const [geo,setGeo] = useState({});
-  const [post,setPost] = useState([]);
-  const [postFilter,setPostFilter] = useState([]);
+
   
 
-  const getUser = () => {
+  
+  useEffect(() => {
         
     Axios.get('https://jsonplaceholder.typicode.com/users/'+{id}.id).then( (response) => {
      setUser(response.data);
      setAddress(response.data.address);
      setCompany(response.data.company);
      setGeo(response.data.address.geo);
+    
 
    })
   .catch((error) => {
     console.error(error);
   });
   
-  }
-  const getPostByUser = () => {
-    let postI = [];
-   
-    Axios.get('https://jsonplaceholder.typicode.com/posts/').then( (response) => {
-    setPost(response.data);
-    const filterP = post.filter((post)=> post.userId == id);
-    const filterComp = filterP.slice(0,5);
-    setPostFilter(filterComp);
-  })
-   .catch((error) => {
-     console.error(error);
-   });
-
-  }
+  },[PostList]);
+    
+ 
 
   return (
       <div className="single_use">
@@ -52,7 +42,7 @@ export default function User() {
     
         <div className="container">
           
-          {getUser()}
+         
          
           
             <div className="row">
@@ -90,14 +80,9 @@ export default function User() {
                   <h5 class="card-title">Posts</h5>
                   
                     <ul class="list-group list-group-flush">
+                      
+                       <PostList id={{id}.id} />
                     
-                      {getPostByUser()}
-                      {postFilter.map((val,key) => {
-                        return(
-                          <li class="list-group-item"><Link to={'/post/'+val.id}>PostId: {val.id}</Link></li>
-                        );
-                      })}
-                     
                     </ul>
 
                 </div>

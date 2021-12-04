@@ -1,26 +1,27 @@
 import React from 'react';
 import Axios from 'axios';
-import { useState } from 'react';
+import { useState,useEffect} from 'react';
 import './userList.css';
 import { Link } from 'react-router-dom';
 export default function UserList() {
 
   const [user,setUser] = useState([]);
+  useEffect(() => {
 
-  const getUser = () => {
-        
     Axios.get('https://jsonplaceholder.typicode.com/users').then( (response) => {
+      console.log('API CALLED');
      setUser(response.data);
     
    });
-  
-  }
+
+  },[]);
+
   return (
     <div className="useList">
       <h1 className="list_title">USERS LIST</h1>
       <div className="container">
         <div className="row ">
-        {getUser()}
+       
         { user.map((val,key) => {
 
           return(
