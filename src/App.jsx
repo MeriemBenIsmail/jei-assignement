@@ -5,6 +5,7 @@ import HomePage from './pages/homePage/HomePage';
 import User from './pages/user/User';
 import { Routes } from 'react-router-dom';
 import Error from './pages/error/Error';
+import Post from './pages/post/Post';
 
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
           <Route exact path='/' element={<HomePage />} />
           <Route exact path='/users' element={<Home />}/>
           <Route exact path='/user/:id' element={<User/>}/>
+          <Route exact path='/post/:id' element={<Post />}/>
           <Route exact path='/*' element={<Error />} />
         </Routes>
 

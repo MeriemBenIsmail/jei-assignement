@@ -3,13 +3,9 @@ import Axios from 'axios';
 import { useState } from 'react';
 import './userList.css';
 import { Link } from 'react-router-dom';
-
-
 export default function UserList() {
 
   const [user,setUser] = useState([]);
-  
-
 
   const getUser = () => {
         
@@ -19,19 +15,11 @@ export default function UserList() {
    });
   
   }
-  
-
   return (
-
     <div className="useList">
       <h1 className="list_title">USERS LIST</h1>
-
-    
       <div className="container">
         <div className="row ">
-        
-
-
         {getUser()}
         { user.map((val,key) => {
 

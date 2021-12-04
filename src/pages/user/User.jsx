@@ -12,6 +12,9 @@ export default function User() {
   const [address,setAddress] = useState({});
   const [company,setCompany] = useState({});
   const [geo,setGeo] = useState({});
+  const [post,setPost] = useState([]);
+  const [postFilter,setPostFilter] = useState([]);
+  
 
   const getUser = () => {
         
@@ -27,9 +30,21 @@ export default function User() {
   });
   
   }
+  const getPostByUser = () => {
+    let postI = [];
+   
+    Axios.get('https://jsonplaceholder.typicode.com/posts/').then( (response) => {
+    setPost(response.data);
+    const filterP = post.filter((post)=> post.userId == id);
+    const filterComp = filterP.slice(0,5);
+    setPostFilter(filterComp);
+  })
+   .catch((error) => {
+     console.error(error);
+   });
 
+  }
 
-  
   return (
       <div className="single_use">
         <h1 className="user_title">USER NUMBER {user.id}</h1>
@@ -38,8 +53,8 @@ export default function User() {
         <div className="container">
           
           {getUser()}
-        
-
+         
+          
             <div className="row">
               <div class="card mb-3">
                 <h3 class="card-header">{user.name}</h3>
@@ -72,6 +87,19 @@ export default function User() {
                       <li class="list-group-item">Catchphrase: {company.catchPhrase}</li>
                       <li class="list-group-item">Bs: {company.bs}</li>
                     </ul>
+                  <h5 class="card-title">Posts</h5>
+                  
+                    <ul class="list-group list-group-flush">
+                    
+                      {getPostByUser()}
+                      {postFilter.map((val,key) => {
+                        return(
+                          <li class="list-group-item"><Link to={'/post/'+val.id}>PostId: {val.id}</Link></li>
+                        );
+                      })}
+                     
+                    </ul>
+
                 </div>
                 <div className="row container">
                   <button type="button" class="btn btn-primary col"><Link to='/users'>Go Back</Link></button>
